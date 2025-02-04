@@ -16,7 +16,7 @@ jobs:
     - name: Waiting for Manager's Approval
       id: approval
       run: echo "Waiting for manager's approval"
-      env: approval-required  # This environment requires approval before continuing
+      env: production 
 
     # Step 2: Proceed after approval
     - name: Checkout code
