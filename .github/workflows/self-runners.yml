@@ -1,7 +1,7 @@
 name: My First GitHub Actions
 
 on:
-  workflow_dispatch:  # Allows manual trigger of the workflow (no automatic execution on push)
+  workflow_dispatch:  # Manual trigger of the workflow
 
 jobs:
   build:
@@ -12,27 +12,27 @@ jobs:
         python-version: [3.8, 3.9]
 
     steps:
-    # Step 1: Pause here until the manager approves the workflow
-    - name: Waiting for Manager's Approval
-      id: approval
-      run: echo "Waiting for manager's approval"
-      env: production 
+      # Step 1: Wait for manager's approval before proceeding
+      - name: Waiting for Manager's Approval
+        id: approval
+        run: echo "Waiting for manager's approval"
+        environment: production  
 
-    # Step 2: Proceed after approval
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Step 2: Proceed after approval
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
 
-    - name: Run tests
-      run: |
-        cd src
-        python -m pytest addition.py
+      - name: Run tests
+        run: |
+          cd src
+          python -m pytest addition.py
